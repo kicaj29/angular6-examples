@@ -10,6 +10,10 @@ export let appRoutes: Routes = [
   {
     path: 'tree-shakeable-providers',
     loadChildren: './tree-shakeable-providers/tree-shakeable-providers.module#TreeShakeableProvidersModule'
+  },
+  {
+    path: 'adapt-tree-shakeable-providers',
+    loadChildren: './adapt-tree-shakeable-providers/adapt-tree-shakeable-providers.module#AdaptTreeShakeableProvidersModule'
   }
 ]
 

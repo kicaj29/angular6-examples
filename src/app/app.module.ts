@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { appRouting } from './app.routing';
+import { Shared3Service } from './tree-shakeable-providers/shared3.service';
 
 @NgModule({
   declarations: [
@@ -12,7 +13,7 @@ import { appRouting } from './app.routing';
     BrowserModule,
     appRouting
   ],
-  providers: [],
+  providers: [Shared3Service],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
