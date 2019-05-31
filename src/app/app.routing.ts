@@ -1,5 +1,8 @@
 import { Routes, RouterModule } from '@angular/router';
 import { ModuleWithProviders } from '@angular/core';
+import { RxjsOperatorsComponent } from './rxjs-operators/rxjs-operators.component';
+import { SubjectVsObservableComponent } from './subject-vs-observable/subject-vs-observable.component';
+import { TableColResizeComponent } from './table-col-resize/table-col-resize.component';
 
 export let appRoutes: Routes = [
   {
@@ -14,6 +17,18 @@ export let appRoutes: Routes = [
   {
     path: 'adapt-tree-shakeable-providers',
     loadChildren: './adapt-tree-shakeable-providers/adapt-tree-shakeable-providers.module#AdaptTreeShakeableProvidersModule'
+  },
+  {
+    path: 'tab-col-resize',
+    component: TableColResizeComponent
+  },
+  {
+    path: 'subject-vs-observable',
+    component: SubjectVsObservableComponent
+  },
+  {
+    path: 'rxjs-operators',
+    component: RxjsOperatorsComponent
   }
 ]
 

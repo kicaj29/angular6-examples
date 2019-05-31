@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-console.log('Shared2Service is not bundled because it not used');
+console.log('Shared2Service is not bundled because it not used and providedIn is used');
 
 @Injectable({
   providedIn: 'root'

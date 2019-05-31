@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { SharedService1 } from './shared1.service';
-import { Shared4Service } from './shared4.service';
 
 @Component({
   selector: 'app-tree-shakeable-providers',
@@ -9,7 +8,7 @@ import { Shared4Service } from './shared4.service';
 })
 export class TreeShakeableProvidersComponent implements OnInit {
 
-  constructor(svc1: SharedService1, svc4: Shared4Service) {
+  constructor(svc1: SharedService1) {
 
   }
 
