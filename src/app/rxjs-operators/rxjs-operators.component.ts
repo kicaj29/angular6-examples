@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {
   from,
-  of
+  of,
+  fromEvent
 } from 'rxjs';
 import {
   delay,
@@ -15,12 +16,39 @@ import {
   templateUrl: './rxjs-operators.component.html',
   styleUrls: ['./rxjs-operators.component.css']
 })
-export class RxjsOperatorsComponent implements OnInit {
+export class RxjsOperatorsComponent implements OnInit, AfterViewInit {
 
+  @ViewChild('input1', {read: ElementRef})
+  input1: ElementRef;
+
+  @ViewChild('input2', {read: ElementRef})
+  input2: ElementRef;
+
+  @ViewChild('combinedValue')
+  span: ElementRef;
 
   constructor() { }
 
   ngOnInit() {
+  }
+
+  ngAfterViewInit() {
+    // another example for mergeMap
+    // https://www.youtube.com/watch?v=b59tcUwfpWU
+    const outerObservable = fromEvent<any>(this.input1.nativeElement, 'input');
+    const innerObservable = fromEvent<any>(this.input2.nativeElement, 'input');
+
+    outerObservable.pipe(
+      mergeMap(event1 => {
+        return innerObservable.pipe(
+          map(event2 => {
+            return event1.target.value + event2.target.value;
+          })
+        );
+      })
+    ).subscribe(
+      mergedValue => this.span.nativeElement.textContent = mergedValue
+    );
   }
 
   operatorMap() {
