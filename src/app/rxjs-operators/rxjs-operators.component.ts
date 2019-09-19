@@ -8,7 +8,8 @@ import {
   delay,
   map,
   mergeAll,
-  mergeMap
+  mergeMap,
+  switchMap
 } from 'rxjs/operators';
 
 @Component({
@@ -38,11 +39,33 @@ export class RxjsOperatorsComponent implements OnInit, AfterViewInit {
     const outerObservable = fromEvent<any>(this.input1.nativeElement, 'input');
     const innerObservable = fromEvent<any>(this.input2.nativeElement, 'input');
 
+    // every key down in input2 (innerObservable) triggers execution of the outerObservable as many times
+    // as it was changed, for example:
+    // if input1 = "abc" and we modify input2 from "1" to "12" then innerSubscription will be executed 3 times
+    // and outer subscription is executed also 3 times!
+
     outerObservable.pipe(
       mergeMap(event1 => {
         return innerObservable.pipe(
           map(event2 => {
-            return event1.target.value + event2.target.value;
+            return event1.target.value + event2.target.value + `; e1: ${event1.data} e2: ${event2.data}`;
+          })
+        );
+      })
+    ).subscribe(
+      mergedValue => this.span.nativeElement.textContent = mergedValue
+    );
+
+    // swichMap
+    // every key down in input2 (innerObservable) triggers execution of the outerObservable as many times
+    // as it was changed but new event cancels previous subscriptions, for example:
+    // if input1 = "abc" and we modify input2 from "1" to "12" then innerSubscription will be executed 1 time
+    // and outer subscription is executed also 1 time!
+    outerObservable.pipe(
+      switchMap(event1 => {
+        return innerObservable.pipe(
+          map(event2 => {
+            return event1.target.value + event2.target.value + `; e1: ${event1.data} e2: ${event2.data}`;
           })
         );
       })
@@ -153,4 +176,6 @@ export class RxjsOperatorsComponent implements OnInit, AfterViewInit {
     const subscribe1 = valueSource.subscribe(val => console.log(val));
 
   }
+
+
 }

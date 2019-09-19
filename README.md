@@ -22,3 +22,12 @@ https://blog.hackages.io/rxjs-5-5-piping-all-the-things-9d469d1b3f44
 https://blog.angularindepth.com/rxjs-understanding-lettable-operators-fe74dda186d3
 https://github.com/ReactiveX/rxjs/blob/master/doc/pipeable-operators.md
 
+# RXJS: operators
+* switchMap - cancels the current subscritpion/request and can cause race condition. **Use for get requests or cancelable requests like search.**
+* concatMap - runs subscriptions/requests in order and is less pefromant. **Use for get, post, put requests when order is important.**
+* mergeMap - runs subscriptions/requests in parallel
+**User for put, post, delete when order is not important**
+* exhaustMap - ignores all subsequent subscriptions/requests until it completes. **Use for login when you do not want more requests unitl this initial one is complete.**
+
+
+
